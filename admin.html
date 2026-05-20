@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Admin Panel</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<h1>Admin Login</h1>
+
+<input type="text"
+id="adminID"
+placeholder="Admin ID">
+
+<input type="password"
+id="adminPass"
+placeholder="Password">
+
+<button onclick="login()">
+
+Login
+
+</button>
+
+<div id="panel"
+style="display:none;">
+
+<table id="table">
+
+<tr>
+
+<th>Name</th>
+
+<th>Mobile</th>
+
+<th>Address</th>
+
+<th>ID</th>
+
+</tr>
+
+</table>
+
+</div>
+
+<a href="index.html">
+
+<button>Home</button>
+
+</a>
+
+</div>
+
+<script>
+
+function login(){
+
+let id =
+document.getElementById("adminID").value;
+
+let pass =
+document.getElementById("adminPass").value;
+
+if(
+
+id=="ajitoraon05"
+
+&&
+
+pass=="AJI13er@@#"
+
+){
+
+document.getElementById("panel")
+
+.style.display="block";
+
+loadData();
+
+}
+
+else{
+
+alert("Wrong Login");
+
+}
+
+}
+
+function loadData(){
+
+db.collection("members")
+
+.get()
+
+.then((data)=>{
+
+data.forEach((doc)=>{
+
+let d = doc.data();
+
+document.getElementById("table")
+
+.innerHTML += `
+
+<tr>
+
+<td>${d.name}</td>
+
+<td>${d.mobile}</td>
+
+<td>${d.address}</td>
+
+<td>${d.memberID}</td>
+
+</tr>
+
+`;
+
+});
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>

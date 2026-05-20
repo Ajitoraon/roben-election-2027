@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Download Card</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<h1>Download Member Card</h1>
+
+<input type="text"
+id="searchName"
+placeholder="Name">
+
+<input type="text"
+id="searchID"
+placeholder="Member ID">
+
+<button onclick="searchCard()">
+
+Search
+
+</button>
+
+<div id="showCard"></div>
+
+<a href="index.html">
+
+<button>Home</button>
+
+</a>
+
+</div>
+
+<script>
+
+function searchCard(){
+
+let name =
+document.getElementById("searchName").value;
+
+let id =
+document.getElementById("searchID").value;
+
+db.collection("members")
+
+.where("memberID","==",Number(id))
+
+.get()
+
+.then((data)=>{
+
+data.forEach((doc)=>{
+
+let d = doc.data();
+
+document.getElementById("showCard")
+
+.innerHTML = `
+
+<div class="card">
+
+<h1>${d.name}</h1>
+
+<h2>ID: ${d.memberID}</h2>
+
+<p>
+
+धन्यवाद!
+
+आपका समर्थन हमारे लिए अमूल्य है।
+
+</p>
+
+</div>
+
+`;
+
+});
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>

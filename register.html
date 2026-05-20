@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Register Member</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<h1>Add Member</h1>
+
+<form id="memberForm">
+
+<input type="file"
+id="photo"
+accept="image/*">
+
+<input type="text"
+id="name"
+placeholder="Name"
+required>
+
+<input type="text"
+id="father"
+placeholder="Father Name"
+required>
+
+<input type="text"
+id="mobile"
+placeholder="Mobile Number"
+required>
+
+<input type="text"
+id="aadhaar"
+placeholder="Aadhaar Last 4 Digit"
+required>
+
+<input type="text"
+id="voter"
+placeholder="Voter ID Optional">
+
+<select id="address">
+
+<option>Bari</option>
+
+<option>Rampur</option>
+
+<option>Ate</option>
+
+<option>Barwadih</option>
+
+<option>Tota</option>
+
+</select>
+
+<button type="submit">
+
+Submit
+
+</button>
+
+</form>
+
+<div id="result"></div>
+
+<a href="index.html">
+
+<button>Home</button>
+
+</a>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
