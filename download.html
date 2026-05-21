@@ -15,6 +15,146 @@ href="style.css">
 
 <script src="firebase.js"></script>
 
+<style>
+
+.id-card{
+
+background:
+linear-gradient(
+to bottom,
+#ff9933,
+white,
+green
+);
+
+padding:20px;
+
+border-radius:20px;
+
+margin-top:20px;
+
+color:black;
+
+box-shadow:0 0 15px rgba(0,0,0,0.4);
+
+}
+
+.card-header{
+
+text-align:center;
+
+font-size:30px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+}
+
+.photo-section{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:40px;
+
+flex-wrap:wrap;
+
+}
+
+.photo-box{
+
+text-align:center;
+
+}
+
+.photo-box img{
+
+width:140px;
+
+height:140px;
+
+border-radius:50%;
+
+border:5px solid white;
+
+object-fit:cover;
+
+background:white;
+
+}
+
+.member-details{
+
+margin-top:25px;
+
+font-size:22px;
+
+line-height:40px;
+
+text-align:center;
+
+}
+
+.thankyou{
+
+margin-top:20px;
+
+font-size:20px;
+
+font-weight:bold;
+
+text-align:center;
+
+}
+
+.print-btn{
+
+margin-top:20px;
+
+padding:15px 30px;
+
+font-size:20px;
+
+background:green;
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.print-btn:hover{
+
+background:darkgreen;
+
+}
+
+@media print{
+
+button{
+
+display:none;
+
+}
+
+body{
+
+background:white;
+
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
@@ -25,19 +165,23 @@ href="style.css">
 
 <input type="text"
 id="searchName"
-placeholder="Name">
+placeholder="Enter Name">
 
 <input type="text"
 id="searchID"
-placeholder="Member ID">
+placeholder="Enter Member ID">
+
+<br><br>
 
 <button onclick="searchCard()">
 
-Search
+Search Card
 
 </button>
 
 <div id="showCard"></div>
+
+<br>
 
 <a href="index.html">
 
@@ -65,27 +209,135 @@ db.collection("members")
 
 .then((data)=>{
 
-data.forEach((doc)=>{
-
-let d = doc.data();
+if(data.empty){
 
 document.getElementById("showCard")
 
 .innerHTML = `
 
-<div class="card">
+<h2>
 
-<h1>${d.name}</h1>
+No Member Found
 
-<h2>ID: ${d.memberID}</h2>
+</h2>
+
+`;
+
+}
+
+data.forEach((doc)=>{
+
+let d = doc.data();
+
+let memberPhoto = d.photo || "https://via.placeholder.com/140";
+
+document.getElementById("showCard")
+
+.innerHTML = `
+
+<div class="id-card"
+id="printArea">
+
+<div class="card-header">
+
+Roben Oraon Election 2027
+
+</div>
+
+<div class="photo-section">
+
+<div class="photo-box">
+
+<img src="roben.jpg">
+
+
+<h3>
+
+Roben Oraon
+
+</h3>
 
 <p>
 
-धन्यवाद!
-
-आपका समर्थन हमारे लिए अमूल्य है।
+Mukhiya Candidate
 
 </p>
+
+</div>
+
+<div class="photo-box">
+
+<img src="${memberPhoto}">
+
+<h3>
+
+${d.name}
+
+</h3>
+
+<p>
+
+Registered Member
+
+</p>
+
+</div>
+
+</div>
+
+<div class="member-details">
+
+<p>
+
+<b>Member ID:</b>
+
+${d.memberID}
+
+</p>
+
+<p>
+
+<b>Father Name:</b>
+
+${d.father}
+
+</p>
+
+<p>
+
+<b>Mobile:</b>
+
+${d.mobile}
+
+</p>
+
+<p>
+
+<b>Address:</b>
+
+${d.address}
+
+</p>
+
+</div>
+
+<div class="thankyou">
+
+“आपका विश्वास ही हमारी सबसे बड़ी ताकत है।  
+आइए मिलकर पंचायत को विकास की नई ऊँचाई तक पहुँचाएँ।”
+
+</div>
+
+<center>
+
+<button class="print-btn"
+onclick="printCard()">
+
+Print ID Card
+
+</button>
+
+</center>
 
 </div>
 
@@ -94,6 +346,12 @@ document.getElementById("showCard")
 });
 
 });
+
+}
+
+function printCard(){
+
+window.print();
 
 }
 
